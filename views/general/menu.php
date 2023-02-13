@@ -12,7 +12,7 @@
                 <ul class="menu_list">
                     <li><a href="./llistatcursos_alu.php">Cursos disponibles</a></li>
                     <li><a href="./micursos_alu.php">Meus cursos</a></li>
-                    <li><a href="./minotes_alu.php">Notes</a></li>
+                    <li><a href="index.php?controller=User&action=mostrarNotasAlum">Notes</a></li>
                     <li><a href="./meu_perfil.php"><img class='menuicon' src="./img/profile.svg" alt="Perfil"></a></li>
                     <li><a href="index.php?controller=Login&action=destroySesion"><img class='menuicon' src="./img/sessionclose.svg" alt="Tancar sessió"></a></li>
                 </ul>
