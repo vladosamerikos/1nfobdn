@@ -19,7 +19,7 @@ session_start();
     <?php
     include "functions.php";
     require_once "autoload.php";
-    // require_once "views/general/menu.php";
+    require_once "views/general/menu.php";
     // require_once "views/general/botonSubir.html";
     
     if (isset($_GET['controller'])) {
@@ -35,7 +35,15 @@ session_start();
         } else {
             $action = "index";
         }
-        $controlador->$action();
+
+        try {
+            $controlador->$action();
+        } catch (Exception $e){
+            echo 'Excepción capturada: ',  $e->getMessage(), "\n";
+        } catch (Error $e){
+            echo 'Error capturado: ',  $e->getMessage(), "\n";
+        }
+        
     } else {
         echo "No existe el controlador";
     }

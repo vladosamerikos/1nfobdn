@@ -9,7 +9,7 @@ echo "<h1 class='pageTitles'>Curosos recents</h1>";
                     <div class='rightcolumn'>
                         <h4 class='cursTitle'>" . $curs['nom'] . "</h4>
                         <p class='cursDescription'>" . $curs['descripcio'] . "</p>
-                        <div class='cursbottomline'><img class='timeIcon' src='./img/time.svg'><p>" . $curs['horres_durara'] . "h</p><a class='altaButton' href='matricular.php?codi=" . $curs['codi'] . "'>Inscriure</a></div>
+                        <div class='cursbottomline'><img class='timeIcon' src='./img/time.svg'><p>" . $curs['horresDurara'] . "h</p><a class='altaButton' href='matricular.php?codi=" . $curs['codi'] . "'>Inscriure</a></div>
                     </div>
                 </div>";
         }

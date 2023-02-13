@@ -13,5 +13,11 @@ class UserController
         require "views/principal/alum.php";
     }
 
+    public function mostrarPrincipalProf()
+    {
+        
+        require "views/principal/prof.php";
+    }
+
 
 }

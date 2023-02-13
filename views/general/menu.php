@@ -1,64 +1,57 @@
 <?php
-echo "<div class='main-menu-bar'>
-<a href='index.php?controller=Login&action=index'><img class='main-menu-bar-logo' src='./img/logo-high.svg' alt='logo' height='100px' width='100px'></a>
-<ul class='main-menu-list'>";
+
     if (isset($_SESSION['email'])) {
+        if (isset($_SESSION['email']) && $_SESSION['role']=='alum')
+        {
+        ?>
+            <div class="menu_bar">
+                <a href="main_alu.php"><img class="logo_menu" src="img/transparent_logo.svg" alt=""></a>
+                <div class='menuWelcomeMsg'>
+                    Estàs loguejat com alumne <?php echo  $_SESSION['nom'] . " " . $_SESSION['cognoms'] ?>
+                </div>
+                <ul class="menu_list">
+                    <li><a href="./llistatcursos_alu.php">Cursos disponibles</a></li>
+                    <li><a href="./micursos_alu.php">Meus cursos</a></li>
+                    <li><a href="./minotes_alu.php">Notes</a></li>
+                    <li><a href="./meu_perfil.php"><img class='menuicon' src="./img/profile.svg" alt="Perfil"></a></li>
+                    <li><a href="index.php?controller=Login&action=destroySesion"><img class='menuicon' src="./img/sessionclose.svg" alt="Tancar sessió"></a></li>
+                </ul>
+            </div>
+        <?php
+        }
+        if (isset($_SESSION['email']) && $_SESSION['role']=='prof')
+        {
+        ?>
+            <div class="menu_bar">
+                <a href="main_prof.php"><img class="logo_menu" src="img/transparent_logo.svg" alt=""></a>
+                <div class='menuWelcomeMsg'>
+                    Estàs loguejat com a professor <?php echo  $_SESSION['nom'] . " " . $_SESSION['cognoms'] ?>
+                </div>
+                <ul class="menu_list">
+                    <li><a href="./cursos_prof.php">Cursos Actius</a></li>
+                    <li><a href="./alumnes_prof.php">Alumnes</a></li>
+                    <li><a href="./notes_prof.php">Notes</a></li>
+                    <li><a href="./meu_perfil.php"><img class='menuicon' src="./img/profile.svg" alt="Perfil"></a></li>
+                    <li><a href="index.php?controller=Login&action=destroySesion"><img class='menuicon' src="./img/sessionclose.svg" alt="Tancar sessió"></a></li>
+                </ul>
+            </div>
+        <?php
+        }
         if (isset($_SESSION['email']) && $_SESSION['role']=='admin')
         {
-            // Vista 1: Admin
-            echo "<li class='main-menu-list-item'><a href='index.php?controller=Login&action=destroySesion'>Cerrar Sesión</a></li>";
+        ?>
+            <div class="menu_bar">
+                <a href="main_admin.php"><img class="logo_menu" src="img/transparent_logo.svg" alt=""></a>
+                <div class='menuWelcomeMsg'>
+                    Estàs loguejat com a administrador <?php echo  $_SESSION['email'] ?>
+                </div>
+                <ul class="menu_list">
+                    <li><a href="./cursos_admin.php">Cursos</a></li>
+                    <li><a href="./profs_admin.php">Professors</a></li>
+                    <li><a href="index.php?controller=Login&action=destroySesion"><img class='menuicon' src="./img/sessionclose.svg" alt="Tancar sessió"></a></li>
+                </ul>
+            </div>
+        <?php
         }
-        if (isset($_SESSION['email']) && $_SESSION['role']=='user')
-        {
-            // Vista 2: User
-
-            echo "
-            
-            <div class='mobile-search' onclick='buscarMobil()'>proves</div>
-            <div class='mobile-search-bar'>buscador</div>
-
-            <div class='search_bar_header'>
-                    <form class='form_search_form_header' action='index.php?controller=Buscador&action=buscadorGeneral' method='post'>
-                        <select name='filtro' class='option_search_bar'>
-                            <option value='articulo.nombre' selected> Titulo </option>
-                            <option value='articulo.isbn'> ISBN </option>
-                            <option value='generos.nombre'> Genero </option>
-                        </select>
-                        <input type='text' class='input_search_bar_header' name='search' id='search'>
-                        <button type='submit' class='button_search_bar_header'>Buscar</button>
-                    </form>
-                </div>";
-            if(isset($_SESSION['Cesta'])){
-                echo "<span style='color: white;'>".calcularCesta()."</span>";
-            }
-            echo "<a href='index.php?controller=Cesta&action=mostrarCesta'><img class='menu-header-basket-photo' src='./img/basket.svg' alt='basket' height='40px' width='40px'></a>";
-            if ($_SESSION['foto']!=''){
-                echo "<a class='foto-perfil' href='index.php?controller=Perfil&action=mostrarPerfil'><img class='menu-header-user-photo' src='".$_SESSION['foto']."' alt='user' height='50px' width='50px'>".$_SESSION['nombre']."</a>";
-            }else{
-                echo "<a class='foto-perfil' href='index.php?controller=Perfil&action=mostrarPerfil'><img class='menu-header-user-photo' src='./img/user.svg' alt='user' height='40px' width='40px'>".$_SESSION['nombre']."</a>";
-            }
-            echo "<li class='main-menu-list-item'><a href='index.php?controller=Login&action=destroySesion'>Cerrar Sesión</a></li>";
-        }
-    }
-    else
-    {
-        // Vista 3: User no logueado
-        echo "<div class='search_bar_header'>
-                    <form class='form_search_form_header' action='index.php?controller=Buscador&action=buscadorGeneral' method='post'>
-                        <select name='filtro' class='option_search_bar'>
-                            <option value='articulo.nombre' selected> Título </option>
-                            <option value='articulo.isbn'> ISBN </option>
-                            <option value='generos.nombre'> Género </option>
-                        </select>
-                        <input type='text' class='input_search_bar_header' name='search' id='search'>
-                        <button type='submit' class='button_search_bar_header'>Buscar</button>
-                    </form>
-                </div>";
-        if(isset($_SESSION['Cesta'])){
-            echo "<span style='color: white;'>".calcularCesta()."</span>";
-        }
-        echo "<a href='index.php?controller=Cesta&action=mostrarCesta'><img class='menu-header-basket-photo' src='./img/basket.svg' alt='basket' height='40px' width='40px'></a>";
-        echo "<li class='main-menu-list-item'><a href='index.php?controller=Login&action=mostrarLoginUser'>Iniciar Sesión</a></li>";
-    }
-echo "</ul>
-</div>";
+}
+?>

@@ -3,12 +3,6 @@
 require_once("database.php");
 class Usuario extends Database
 {
-    private $id;
-    private $nombre;
-    private $direccion;
-    private $email;
-    private $clave;
-    private $estado;
 
     public function login($email, $password, $table)
     {
