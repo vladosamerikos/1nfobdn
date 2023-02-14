@@ -162,7 +162,7 @@ class AdminController
         die();
     }
 
-    // Busqueda
+    // Busqueda cursos
 
     public function buscarAdministrarCursos()
     {
@@ -173,5 +173,116 @@ class AdminController
 
     }
 
+    // Administrar Profs
+
+    public function mostrarAdministrarProfessors()
+    {
+        $prof = new Usuario();
+        $professors = $prof->obtenerProfessores();
+        require "views/adminPanel/tablaprofs.php";
+    }
+
+    public function mostrarCrearProfessors()
+    {
+        $user = new Usuario();
+        require "views/adminPanel/crearprofessor.php";
+    }
+
+    public function crearProfessors()
+    {
+        $_dni = $_POST['dni'];
+        $_nom = $_POST['nom'];
+        $_cognoms = $_POST['cognoms'];
+        $_edat = $_POST['edat'];
+        $_titol = $_POST['titol'];
+        $_email = $_POST['correu'];
+        $_password = md5(trim($_POST['password']));
+
+        if (is_uploaded_file($_FILES['foto']['tmp_name'])) {
+            $nombreDirectorio = "img/";
+            $idUnico = $_dni;
+            $nomorig = $_FILES['foto']['name'];
+            $cont = explode(".", $nomorig);
+            $ext = $cont[1];
+            $nombreFichero = $idUnico . "." . $ext;
+            move_uploaded_file(
+                $_FILES['foto']['tmp_name'],
+                $nombreDirectorio . $nombreFichero
+            );
+        }
+        $_foto = $nombreDirectorio . $nombreFichero;
+
+        $prof = new Usuario();
+        $result = $prof->crearProfessor($_dni, $_nom, $_cognoms, $_edat, $_titol, $_foto, $_email, $_password);
+        if ($result) {
+            echo "Professor creado correctamente";
+            header('Location: index.php?controller=Admin&action=mostrarAdministrarProfessors');
+            die();
+        } else {
+            echo "Error al crear al professor";
+        }
+    }
+
+    public function desactivarProfessor()
+    {
+        $dni = $_GET['dni'];
+        $prof = new Usuario();
+        $prof->desactivarProfessor($dni);
+        header('Location: index.php?controller=Admin&action=mostrarAdministrarProfessors');
+        die();
+    }
+
+    public function activarProfessor()
+    {
+        $dni = $_GET['dni'];
+        $prof = new Usuario();
+        $prof->activarProfessor($dni);
+        header('Location: index.php?controller=Admin&action=mostrarAdministrarProfessors');
+        die();
+    }
+
+    public function eliminarProfessor()
+    {
+        $dni = $_GET['dni'];
+        $prof = new Usuario();
+        $prof->eliminarProfessor($dni);
+        header('Location: index.php?controller=Admin&action=mostrarAdministrarProfessors');
+        die();
+    }
+
+    public function mostrarEditarProfessor()
+    {
+        $dni = $_GET['dni'];
+        $professor = new Usuario();
+        $prof= $professor->obtenerProfessor($dni);
+        require "views/adminPanel/editarprofessor.php";
+    }
+
+
+    public function editarProfessor()
+    {
+        $_dni = $_POST['dni'];
+        $_nom = $_POST['nom'];
+        $_cognoms = $_POST['cognoms'];
+        $_edat = $_POST['edat'];
+        $_titol = $_POST['titol'];
+        $_email = $_POST['correu'];
+        $_password = md5(trim($_POST['password']));
+        $prof = new Usuario();
+        $result = $prof->editarProfessor($_dni, $_nom, $_cognoms, $_edat, $_titol, $_email, $_password);
+        header('Location: index.php?controller=Admin&action=mostrarAdministrarProfessors');
+    }
+
+
+    // Busqueda professors
+
+    public function buscarAdministrarProfessors()
+    {
+        $busqueda = $_POST['search'];
+        $prof = new Usuario();
+        $professors = $prof->obtenerProfessoresBusqueda($busqueda);
+        require "views/adminPanel/tablaprofs.php";
+    }
+    
 
 }

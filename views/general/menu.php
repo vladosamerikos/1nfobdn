@@ -45,7 +45,7 @@
                 </div> -->
                 <ul class="menu_list">
                     <li><a href="index.php?controller=Admin&action=mostrarAdministrarCursos">Cursos</a></li>
-                    <li><a href="index.php?controller=Admin&action=">Professors</a></li>
+                    <li><a href="index.php?controller=Admin&action=mostrarAdministrarProfessors">Professors</a></li>
                     <li><a href="index.php?controller=Login&action=destroySesion"><img class='menuicon' src="./img/sessionclose.svg" alt="Tancar sessió"></a></li>
                 </ul>
             </div>
