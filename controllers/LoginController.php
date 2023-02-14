@@ -88,26 +88,36 @@ class LoginController
     public function signupUser()
     {
         $user = new Usuario();
-        $_email = trim($_POST['email']);
         $_password = md5(trim($_POST['password']));
-        $_nombre = $_POST['nombre'];
-        $_apellidos = $_POST['apellidos'];
-        $_direccion = $_POST['direccion'];
+        $_dni = $_POST['dni'];
+        $_nom = $_POST['nom'];
+        $_cognom = $_POST['cognom'];
+        $_email = $_POST['email'];
+        $_edat = $_POST['edat'];
 
-        $emailExist = $user->comprobarEmail($_email);
-
-        if ($emailExist){
-            echo "Este correo ya esta registrado";
-        }else{
-            $result = $user->signin($_email, $_password, $_nombre, $_apellidos, $_direccion);
-            if ($result) {
-                echo "Usuario creado correctamente";
-                header('Location: index.php?controller=Login&action=mostrarLoginUser');
-                die();
-            } else {
-                echo "Error al crear al usuario";
-            }
+        if (is_uploaded_file($_FILES['foto']['tmp_name'])) {
+            $nombreDirectorio = "img/";
+            $idUnico = $_dni;
+            $nomorig = $_FILES['foto']['name'];
+            $cont = explode(".", $nomorig);
+            $ext = $cont[1];
+            $nombreFichero = $idUnico . "." . $ext;
+            move_uploaded_file(
+                $_FILES['foto']['tmp_name'],
+                $nombreDirectorio . $nombreFichero
+            );
         }
+        $_foto = $nombreDirectorio . $nombreFichero;
+
+        $result = $user->signin($_dni, $_nom, $_cognom, $_edat ,$_foto, $_email, $_password);
+        if ($result) {
+            echo "Usuario creado correctamente";
+            header('Location: index.php?controller=Login&action=mostrarLoginUser');
+            die();
+        } else {
+            echo "Error al crear al usuario";
+        }
+        
     }
 
     public function mostrarSignupUser()

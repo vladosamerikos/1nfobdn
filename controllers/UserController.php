@@ -20,6 +20,8 @@ class UserController
         require "views/principal/prof.php";
     }
 
+    // part Alumn
+
     public function mostrarNotasAlum()
     {
         $nota = new Nota();
@@ -70,6 +72,82 @@ class UserController
         $curso = $curso->matricularAlum($_SESSION['dni'],$codi);
         header('Location: index.php?controller=User&action=mostrarCursosAlum');
         die();
+    }
+
+    // Buscadors Alum
+    public function buscarCursosDisponiblesAlum()
+    {
+        $busqueda = $_POST['search'];
+        $curso = new Curso();
+        $cursos = $curso->obtenerCursosDisponiblesBusqueda($_SESSION['dni'],$busqueda);
+        require "views/alumne/cursosdisponibles.php";
+    }
+
+    public function buscarCursosAlum()
+    {
+        $busqueda = $_POST['search'];
+        $curso = new Curso();
+        $cursos = $curso->obtenerCursosAlumBusqueda($_SESSION['dni'],$busqueda);
+        require "views/alumne/micursos.php";
+    }
+
+    public function buscarNotasAlum()
+    {
+        $busqueda = $_POST['search'];
+        $nota = new Nota();
+        $cursos = $nota->obtenerNotasAlumBusqueda($_SESSION['dni'],$busqueda);
+        require "views/alumne/minotas.php";
+    }
+
+    // Part prof
+
+    public function mostrarCursosProf()
+    {
+        $curso = new Curso();
+        $cursos = $curso->obtenerCursosProf($_SESSION['dni']);
+        require "views/professor/meuscursos.php";
+    }
+
+    public function mostrarAlumnosCurso()
+    {
+        $codi =  $_GET['codi'];
+        $nomcurs =  $_GET['nomcurs'];
+
+        $curso = new Curso();
+        $alumnes = $curso->obtenerAlumnosCurso($codi);
+        require "views/professor/alumnescurs.php";
+    }
+
+    public function mostrarEditNotaAlumn()
+    {
+        $codi =  $_GET['codi'];
+        $dni =  $_GET['dni'];
+
+        $nota = new Nota();
+        $alumne = $nota->obtenerNotaAlum($codi,$dni);
+        require "views/professor/editnota.php";
+    }
+
+    public function editNotaAlumn()
+    {
+        $dni = $_POST['dni'];
+        $codi = $_POST['codi'];
+        $nota = $_POST['nota'];
+        $nomcurs = $_POST['curs'];
+
+        $notaObj = new Nota();
+        $alumne = $notaObj->ponerNotaAlum($codi,$dni,$nota);
+        header("Location: index.php?controller=User&action=mostrarAlumnosCurso&codi=".$codi."&nomcurs=".$nomcurs."");
+    }
+
+    // Buscadors Prof
+
+    public function buscarCursosProf()
+    {
+        $busqueda = $_POST['search'];
+        $curso = new Curso();
+        $cursos = $curso->obtenerCursosProfBusqueda($_SESSION['dni'],$busqueda);
+        require "views/professor/meuscursos.php";
     }
 
 

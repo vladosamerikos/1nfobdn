@@ -10,7 +10,17 @@ class Usuario extends Database
         $consulta->execute();
         $resultado = $consulta->fetchAll();
         return $resultado;
+    }
 
+    public function signin($dni, $nom, $cognoms, $edat, $foto, $email, $password)
+    {
+        $consulta = $this->db->prepare("INSERT INTO alumnes (dni, nom, cognoms, edat, foto, email, actiu, password) VALUES ('$dni', '$nom', '$cognoms', '$edat', '$foto', '$email', 'si', '$password')");
+        if($consulta->execute()){
+            $last_id = $this->db->lastInsertId();
+            return true;
+        }else{
+            return false;
+        }
     }
     
     public function obtenerPerfil($email, $table)

@@ -1,4 +1,14 @@
 <?php
+    echo "<h1 class='pageTitles'>Cursos disponibles</h1>";
+
+    echo "<div class='search_bar'>
+        <img class='search_img' src='img/search.svg' alt='lupa de busqueda'>
+        <form class='search_form' action='index.php?controller=User&action=buscarCursosDisponiblesAlum' method='post'>
+            <input type='text' name='search' id='search' placeholder='Introdueix el nom del curs.'>
+            <button type='submit'>Buscar</button>
+        </form>
+    </div>";
+
 foreach ($cursos as $curs){
     echo "<div class='cursDisponible'>
         <div class='leftContent'>
@@ -13,6 +23,4 @@ foreach ($cursos as $curs){
         </div>
     </div>";
 }
-
-
 ?>

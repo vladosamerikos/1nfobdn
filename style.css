@@ -26,6 +26,9 @@ body {
     border-radius: 3px;
 }
 
+.floatRigth{
+    float: right !important;
+}
 h1 {
     font-family: 'Fengardo Neue', sans-serif;
     font-size: 24px;
