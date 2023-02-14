@@ -39,13 +39,13 @@
         {
         ?>
             <div class="menu_bar">
-                <a href="index.php?controller=User&action="><img class="logo_menu" src="img/transparent_logo.svg" alt=""></a>
-                <div class='menuWelcomeMsg'>
+                <a href="index.php?controller=Admin&action=mostrarPrincipalAdmin"><img class="logo_menu" src="img/transparent_logo.svg" alt=""></a>
+                <!-- <div class='menuWelcomeMsg'>
                     Estàs loguejat com a administrador <?php echo  $_SESSION['email'] ?>
-                </div>
+                </div> -->
                 <ul class="menu_list">
-                    <li><a href="index.php?controller=User&action=">Cursos</a></li>
-                    <li><a href="index.php?controller=User&action=">Professors</a></li>
+                    <li><a href="index.php?controller=Admin&action=mostrarAdministrarCursos">Cursos</a></li>
+                    <li><a href="index.php?controller=Admin&action=">Professors</a></li>
                     <li><a href="index.php?controller=Login&action=destroySesion"><img class='menuicon' src="./img/sessionclose.svg" alt="Tancar sessió"></a></li>
                 </ul>
             </div>

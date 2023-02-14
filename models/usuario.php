@@ -30,4 +30,12 @@ class Usuario extends Database
         $resultado = $consulta->fetchAll();
         return $resultado;
     }
+
+    public function obtenerProfessores()
+    {
+        $consulta = $this->db->prepare("SELECT * FROM professor");
+        $consulta->execute();
+        $resultado = $consulta->fetchAll();
+        return $resultado;
+    }
 }

@@ -34,7 +34,7 @@ class LoginController
             $_SESSION['email'] = $_email;
             $_SESSION['role'] = 'admin';
             echo "login correcto";
-            header('Location: index.php?controller=Libro&action=mostrarLibros');
+            header('Location: index.php?controller=Admin&action=mostrarPrincipalAdmin');
             die();
         } else {
             echo "login incorrecto";
